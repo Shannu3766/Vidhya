@@ -3,109 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WELCOME to Amrita Academic Management Suite Home </title>
+    <title>WELCOME to Amrita Academic Management Suite Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", async () => {
             // Set dark mode as default
             document.body.classList.add('light-mode');
+
+            // Fetch and display random words as checkboxes
+            await fetchRandomWords();
         });
 
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
+        async function fetchRandomWords() {
+            try {
+                const response = await fetch('/get_random_words', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
 
-        async function sendMessage() {
-            const userInput = document.getElementById('inputField').value;
-            if (!userInput.trim()) return;
-            document.getElementById('inputField').value = '';
+                const checkboxContainer = document.getElementById('checkboxContainer');
+                checkboxContainer.innerHTML = ''; // Clear existing checkboxes
 
-            const chatLog = document.getElementById('chatLog');
+                data.words.forEach(word => {
+                    const label = document.createElement('label');
+                    label.style.marginRight = '10px';
 
-            // Add user's message
-            const userMessageContainer = document.createElement('div');
-            userMessageContainer.className = 'message-container user';
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = word;
+                    checkbox.name = 'word';
 
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble user-message';
-            userMessage.textContent = userInput;
-
-            userMessageContainer.appendChild(userMessage);
-            chatLog.appendChild(userMessageContainer);
-
-            // Fetch response from the bot
-            const response = await fetch('/get_response', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_input: userInput }),
-            });
-            const data = await response.json();
-
-            // Add bot's message
-            const botMessageContainer = document.createElement('div');
-            botMessageContainer.className = 'message-container bot';
-
-            const botMessage = document.createElement('div');
-            botMessage.className = 'message-bubble bot-message';
-            botMessage.textContent = data.response;
-
-            botMessageContainer.appendChild(botMessage);
-            chatLog.appendChild(botMessageContainer);
-
-            // Scroll to the latest message
-            chatLog.scrollTop = chatLog.scrollHeight;
-
-            // Call text-to-speech for bot's message
-            textToSpeech(data.response);
-        }
-
-        function handleKeyDown(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                sendMessage();
-            } else if (event.key === 'Enter' && event.shiftKey) {
-                const inputField = document.getElementById('inputField');
-                inputField.value += '\n';
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(word));
+                    checkboxContainer.appendChild(label);
+                });
+            } catch (error) {
+                console.error('Error fetching random words:', error);
             }
         }
 
-        // Function to convert text to speech
-        function textToSpeech(text) {
-            const synth = window.speechSynthesis;
-            const utterance = new SpeechSynthesisUtterance(text);
-            synth.speak(utterance);
+        function getSelectedWords() {
+            const checkboxes = document.querySelectorAll('input[name="word"]:checked');
+            const selectedWords = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            if (selectedWords.length > 6) {
+                alert('Please select up to 6 words only.');
+                return;
+            }
+
+            return selectedWords;
         }
 
-        // Function to convert speech to text
-        function startVoiceRecognition() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'en-US';
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
+        async function sendSelectedWords() {
+            const selectedWords = getSelectedWords();
 
-            recognition.start();
+            if (!selectedWords || selectedWords.length === 0) {
+                alert('Please select at least one word.');
+                return;
+            }
 
-            recognition.onresult = function(event) {
-                const speechToText = event.results[0][0].transcript;
-                document.getElementById('inputField').value = speechToText;
-            };
+            try {
+                const response = await fetch('/submit_selected_words', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selected_words: selectedWords }),
+                });
 
-            recognition.onerror = function(event) {
-                console.error('Speech recognition error detected: ' + event.error);
-            };
+                const data = await response.json();
+                displaySelectedWords(data.selected_words);
+
+                // Refresh the words after showing the result
+                await fetchRandomWords();
+
+            } catch (error) {
+                console.error('Error sending selected words:', error);
+            }
+        }
+
+        function displaySelectedWords(words) {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';  // Clear previous results
+            if (words && words.length > 0) {
+                // Join the words into a sentence with spaces between them
+                const sentence = words.join(' ') + '.';
+                // Display the sentence
+                resultContainer.textContent = sentence;
+            } else {
+                resultContainer.textContent = 'No words selected or error occurred.';
+            }
         }
     </script>
 </head>
 <body>
     <div class="chat-container">
-        <h2>Chat Interface</h2>
-        <div id="chatLog" class="chat-log"></div>
-        <div class="input-container">
-            <textarea id="inputField" style="height: 3vh;border-radius: 20px;" placeholder="Type your message here..." onkeydown="handleKeyDown(event)"></textarea>
-            <button onclick="sendMessage()" style="height:5vh;border-radius: 15px;">Send</button>
-        </div>
+        <h2>Select Words</h2>
+        <div id="checkboxContainer"></div>
+        <button onclick="sendSelectedWords()" style="margin-top: 10px; height: 5vh; border-radius: 15px;">Submit Words</button>
+        <div id="resultContainer" style="margin-top: 20px; font-size: 16px;"></div>
     </div>
 </body>
 </html>

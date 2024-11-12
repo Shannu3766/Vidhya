@@ -1,38 +1,46 @@
-from flask import request, jsonify, render_template, Blueprint, flash, redirect, url_for
-import speech_recognition as sr
-from flask_login import current_user
-import google.generativeai as genai
+from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO
+import os
+from groq import Groq
 
-app = Blueprint('voicebot', __name__, template_folder='templates')
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a strong secret key
 
-recognizer = sr.Recognizer()
-genai.configure(api_key="AIzaSyDHLQe1XH7ZtwwvLrTc3x4Kk5dosQUUmio")
-model = genai.GenerativeModel('gemini-1.5-flash', generation_config=genai.GenerationConfig(temperature=0.9))
+# Initialize SocketIO with the app
+socketio = SocketIO(app)
 
+# Initialize Groq client
+client = Groq(api_key='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')
 
-@app.route('/voice', methods=['GET'])
-def voice():
-    if current_user.is_authenticated:
-        return render_template('voice.html')
-    flash('You need to log in to access the voice.', 'warning')
-    return redirect(url_for('login_panel.login'))
+# Function to generate a request based on user input
+def generate_request(user_input):
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "system",
+                "content": ""
+            },
+            {
+                "role": "user",
+                "content": user_input
+            }
+        ],
+        model="llama3-70b-8192"
+    )
+    return chat_completion.choices[0].message.content
 
-@app.route('/generate-response', methods=['POST'])
-def generate_response():
-    if not current_user.is_authenticated:
-        flash('You need to log in to access the voice feature.', 'warning')
-        return redirect(url_for('login_panel.login'))
-    
-    data = request.json
-    text = data['text']
-    
-    sys_message = ''' 
-    You are an AI Medical Assistant trained on a vast dataset of health and mental health information. Please be thorough and
-    provide an informative answer. If you don't know the answer to a specific medical inquiry, advise seeking professional help 
-    and don't mention that 'I'm an AI and can't provide medical advice'. Do not be much creative.
-    '''
-    
-    response = model.generate_content(f"{sys_message}, query: {text}")
-    cleaned_text = response.text.replace('*', '')
+# Route for the home page
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    return jsonify({'response': cleaned_text})
+# API route to handle user input and generate a response
+@app.route('/get_response', methods=['POST'])
+def get_response():
+    user_input = request.json.get('user_input')
+    # response = generate_request(user_input)
+    response=user_input
+    return jsonify({"response": response})
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Translation Cards</title>
     <style>
         .container {
@@ -10,10 +12,10 @@
             justify-content: space-between;
         }
         .card {
-            border: 1px solid #ddd;
+            border: 1px solid black;
             padding: 20px;
             margin: 10px;
-            width: 200px;
+            width: 250px;
             text-align: center;
             border-radius: 15px;
         }
@@ -24,13 +26,22 @@
         .translation-box {
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid black;
             text-align: center;
             width: 75%;
             margin-left: auto; 
             margin-right: auto;
         }
-   
+
+        body{
+        background-color: #8EC5FC;
+        background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+        color:white;
+        font-weight:bold;
+        font-size:20px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -39,115 +50,135 @@
     <!-- Card 1 -->
     <div class="card" id="card1">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwRLzFuwM-ZPtZhp2YSX_swTk8SyUZvLRwHw&s" alt="Image 1">
-        <p>Tree</p>
-        <select id="lang1">
+        <p id="word">Tree</p>
+        <select id="lang1" onchange="showTranslation('lang1')">
             <option value="en">English</option>
-            <option value="es">Malayalam</option>
-            <option value="fr">Telugu</option>
-            <option value="de">Kannada</option>
-            <option value="de">Tamil</option>
-            <option value="de">Hindi</option>
-        </select>    
-        <button onclick="showTranslation('lang1', 'Example')">Get Meaning</button>
-        <button onclick="speakWord('Example')" style="border: 2px; background: none; cursor: pointer;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" alt="Translate" style="width: 15px; height: 15px;">
-        </button>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="card" id="card2">
-        <img src="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-3foodgroups_fruits_detailfeature.jpg?sfvrsn=64942d53_4" alt="Image 2">
-        <p>Fruits</p>
-        <select id="lang2">
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
+            <option value="ml">Malayalam</option>
+            <option value="te">Telugu</option>
+            <option value="kn">Kannada</option>
+            <option value="ta">Tamil</option>
+            <option value="hi">Hindi</option>
         </select>
-        <button onclick="showTranslation('lang2', 'Return')">Get Meaning</button>
-        <button onclick="speakWord('Return')" style="border: 2px; background: none; cursor: pointer;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" alt="Translate" style="width: 15px; height: 15px;">
+        <button onclick="showTrans('lang1', document.getElementById('word').textContent)">Get Meaning</button>
+        <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
+            <i style="font-size:15px" class="fa">&#xf028;</i>
         </button>
     </div>
-
-    <!-- Card 3 -->
-    <div class="card" id="card3">
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/012/084/533/small_2x/cartoon-wild-animals-on-white-background-vector.jpg" alt="Image 3">
-        <p>Animals</p>
-        <select id="lang3">
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
-        </select>
-        <button onclick="showTranslation('lang3', 'Translate')">Get Meaning</button>
-        <button onclick="speakWord('Translate')" style="border: 2px; background: none; cursor: pointer;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" alt="Translate" style="width: 15px; height: 15px;">
-        </button>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="card" id="card4">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAfElvjfbY1sOLV93jDu1djCnFLJN28gbxtg&s" alt="Image 4">
-        <p>School</p>
-        <select id="lang4">
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
-        </select>
-        <button onclick="showTranslation('lang4', 'Language')">Get Meaning</button>
-        <button onclick="speakWord('language')" style="border: 2px; background: none; cursor: pointer;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" alt="Translate" style="width: 15px; height: 15px;">
-        </button>
-    </div>
+        <!-- Card 2 -->
+        <div class="card" id="card2">
+            <img src="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-3foodgroups_fruits_detailfeature.jpg?sfvrsn=64942d53_4" alt="Image 2">
+            <p>Fruits</p>
+            <select id="lang2" onchange="showTranslation('lang2')">
+                <option value="en">English</option>
+                <option value="ma">Malayalam</option>
+                <option value="te">Telugu</option>
+                <option value="ka">Kannada</option>
+                <option value="ta">Tamil</option>
+                <option value="hi">Hindi</option>
+            </select>
+            <button onclick="showTrans('lang2', 'Return')">Get Meaning</button>
+            <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
+                <i style="font-size:15px" class="fa">&#xf028;</i>
+            </button>
+        </div>
+    
+        <!-- Card 3 -->
+        <div class="card" id="card3">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/012/084/533/small_2x/cartoon-wild-animals-on-white-background-vector.jpg" alt="Image 3">
+            <p>Animals</p>
+            <select id="lang3" onchange="showTranslation('lang3')">
+                <option value="en">English</option>
+                <option value="ma">Malayalam</option>
+                <option value="te">Telugu</option>
+                <option value="ka">Kannada</option>
+                <option value="ta">Tamil</option>
+                <option value="hi">Hindi</option>
+            </select>
+            <button onclick="showTrans('lang3', 'Translate')">Get Meaning</button>
+            <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
+                <i style="font-size:15px" class="fa">&#xf028;</i>
+            </button>
+        </div>
+    
+        <!-- Card 4 -->
+        <div class="card" id="card4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAfElvjfbY1sOLV93jDu1djCnFLJN28gbxtg&s" alt="Image 4">
+            <p>School</p>
+            <select id="lang4" onchange="showTranslation('lang4')">
+                <option value="en">English</option>
+                <option value="ma">Malayalam</option>
+                <option value="te">Telugu</option>
+                <option value="ka">Kannada</option>
+                <option value="ta">Tamil</option>
+                <option value="hi">Hindi</option>
+            </select>
+            <button onclick="showTrans('lang4', 'Language')">Get Meaning</button>
+            <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
+                <i style="font-size:15px" class="fa">&#xf028;</i>
+            </button>
+        </div>
 </div>
 
 <div id="translationBox" class="translation-box">
-    <p id="translationText">Select a language and press the button to see the translation.</p>
+    <p id="translationText">Click the <u>Get Meaning</u> button to get word meaning </p>
 </div>
 
 <script>
-    function showTranslation(langId, word) {
-        const lang = document.getElementById(langId).value;
-        // Mock translation logic
-        const translations = {
-            'Example': {
-                'en': 'Meaning of Example in English',
-                'es': 'Significado de Example en español',
-                'fr': 'Signification de Example en français',
-                'de': 'Bedeutung von Example auf Deutsch'
+    function showTrans(langId, word) {
+        const lang = document.getElementById(langId).value; // Get the selected language
+        fetch('/get_translation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            'Return': {
-                'en': 'Meaning of Return in English',
-                'es': 'Significado de Return en español',
-                'fr': 'Signification de Return en français',
-                'de': 'Bedeutung von Return auf Deutsch'
-            },
-            'Translate': {
-                'en': 'Meaning of Translate in English',
-                'es': 'Significado de Translate en español',
-                'fr': 'Signification de Translate en français',
-                'de': 'Bedeutung von Translate auf Deutsch'
-            },
-            'Language': {
-                'en': 'Meaning of Language in English',
-                'es': 'Significado de Language en español',
-                'fr': 'Signification de Language en français',
-                'de': 'Bedeutung von Language auf Deutsch'
+            body: JSON.stringify({word: word, lang: lang})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.translated_word) {
+                // Display the translation in the #translationText paragraph
+                
+                document.getElementById('translationText').innerText = data.translated_word;
+            } else {
+                document.getElementById('translationText').innerText = 'No translation available';
             }
-        };
-
-        const translation = translations[word][lang] || 'Translation not available';
-        document.getElementById('translationText').innerText = translation;
-
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('translationText').innerText = 'Error fetching translation';
+        });
+    }
+    
+    
     function speakWord(word) {
         let utterance = new SpeechSynthesisUtterance(word);
         utterance.lang = 'en-US'; // Adjust language as needed
         window.speechSynthesis.speak(utterance);
     }
-
+    function showTranslation(selectId) {
+        const langSelect = document.getElementById(selectId);
+        const targetLang = langSelect.value;
+    
+        // Find the parent card element based on the select ID
+        const card = langSelect.closest('.card');
+        const wordElement = card.querySelector('p'); // Select the <p> tag inside the card
+        const word = wordElement.textContent; // Word to be translated
+    
+        // Fetch request to Flask backend for translation
+        fetch('/translate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ word: word, language: targetLang }) // Sending word and language
+        })
+        .then(response => response.json())
+        .then(data => {
+            wordElement.textContent = data.translated_word; // Update the same <p> tag with the translated word
+        })
+        .catch(error => console.error('Error:', error)); // Handle any errors in the request
     }
+
 </script>
 
 </body>

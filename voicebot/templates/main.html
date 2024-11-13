@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Cards</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            border-radius: 15px;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+        .translation-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            width: 75%;
+            margin-left: auto; 
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Card 1 -->
+    <div class="card" id="card1">
+        <img src="https://via.placeholder.com/150" alt="Image 1">
+        <p>Word: Example</p>
+        <select id="lang1">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+        </select>    
+        <button onclick="showTranslation('lang1', 'Example')">Get Meaning</button>
+        <button onclick="speakWord('Example')" style="border: 2px; background: none; cursor: pointer;">
+            <img src="static/speaker-filled-audio-tool.png" alt="Translate" style="width: 15px; height: 15px;">
+        </button>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card" id="card2">
+        <img src="https://via.placeholder.com/150" alt="Image 2">
+        <p>Word: Return</p>
+        <select id="lang2">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+        </select>
+        <button onclick="showTranslation('lang2', 'Return')">Get Meaning</button>
+        <button onclick="speakWord('Return')" style="border: 2px; background: none; cursor: pointer;">
+            <img src="static/speaker-filled-audio-tool.png" alt="Translate" style="width: 15px; height: 15px;">
+        </button>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card" id="card3">
+        <img src="https://via.placeholder.com/150" alt="Image 3">
+        <p>Word: Translate</p>
+        <select id="lang3">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+        </select>
+        <button onclick="showTranslation('lang3', 'Translate')">Get Meaning</button>
+        <button onclick="speakWord('Translate')" style="border: 2px; background: none; cursor: pointer;">
+            <img src="static/speaker-filled-audio-tool.png" alt="Translate" style="width: 15px; height: 15px;">
+        </button>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card" id="card4">
+        <img src="https://via.placeholder.com/150" alt="Image 4">
+        <p>Word: Language</p>
+        <select id="lang4">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+        </select>
+        <button onclick="showTranslation('lang4', 'Language')">Get Meaning</button>
+        <button onclick="speakWord('language')" style="border: 2px; background: none; cursor: pointer;">
+            <img src="static/speaker-filled-audio-tool.png" alt="Translate" style="width: 15px; height: 15px;">
+        </button>
+    </div>
+</div>
+
+<div id="translationBox" class="translation-box">
+    <p id="translationText">Select a language and press the button to see the translation.</p>
+</div>
+
+<script>
+    function showTranslation(langId, word) {
+        const lang = document.getElementById(langId).value;
+        // Mock translation logic
+        const translations = {
+            'Example': {
+                'en': 'Meaning of Example in English',
+                'es': 'Significado de Example en español',
+                'fr': 'Signification de Example en français',
+                'de': 'Bedeutung von Example auf Deutsch'
+            },
+            'Return': {
+                'en': 'Meaning of Return in English',
+                'es': 'Significado de Return en español',
+                'fr': 'Signification de Return en français',
+                'de': 'Bedeutung von Return auf Deutsch'
+            },
+            'Translate': {
+                'en': 'Meaning of Translate in English',
+                'es': 'Significado de Translate en español',
+                'fr': 'Signification de Translate en français',
+                'de': 'Bedeutung von Translate auf Deutsch'
+            },
+            'Language': {
+                'en': 'Meaning of Language in English',
+                'es': 'Significado de Language en español',
+                'fr': 'Signification de Language en français',
+                'de': 'Bedeutung von Language auf Deutsch'
+            }
+        };
+
+        const translation = translations[word][lang] || 'Translation not available';
+        document.getElementById('translationText').innerText = translation;
+
+    function speakWord(word) {
+        let utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'en-US'; // Adjust language as needed
+        window.speechSynthesis.speak(utterance);
+    }
+
+    }
+</script>
+
+</body>
+</html>

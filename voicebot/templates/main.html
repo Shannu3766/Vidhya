@@ -67,7 +67,7 @@
         <!-- Card 2 -->
         <div class="card" id="card2">
             <img src="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-3foodgroups_fruits_detailfeature.jpg?sfvrsn=64942d53_4" alt="Image 2">
-            <p>Fruits</p>
+            <p id="word1">Fruits</p>
             <select id="lang2" onchange="showTranslation('lang2')">
                 <option value="en">English</option>
                 <option value="ma">Malayalam</option>
@@ -76,7 +76,7 @@
                 <option value="ta">Tamil</option>
                 <option value="hi">Hindi</option>
             </select>
-            <button onclick="showTrans('lang2', 'Return')">Get Meaning</button>
+            <button onclick="showTrans('lang2', document.getElementById('word1').textContent)">Get Meaning</button>
             <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
                 <i style="font-size:15px" class="fa">&#xf028;</i>
             </button>
@@ -85,7 +85,7 @@
         <!-- Card 3 -->
         <div class="card" id="card3">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/012/084/533/small_2x/cartoon-wild-animals-on-white-background-vector.jpg" alt="Image 3">
-            <p>Animals</p>
+            <p id="word2">Animals</p>
             <select id="lang3" onchange="showTranslation('lang3')">
                 <option value="en">English</option>
                 <option value="ma">Malayalam</option>
@@ -94,7 +94,7 @@
                 <option value="ta">Tamil</option>
                 <option value="hi">Hindi</option>
             </select>
-            <button onclick="showTrans('lang3', 'Translate')">Get Meaning</button>
+            <button onclick="showTrans('lang3', document.getElementById('word2').textContent)">Get Meaning</button>
             <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
                 <i style="font-size:15px" class="fa">&#xf028;</i>
             </button>
@@ -103,7 +103,7 @@
         <!-- Card 4 -->
         <div class="card" id="card4">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAfElvjfbY1sOLV93jDu1djCnFLJN28gbxtg&s" alt="Image 4">
-            <p>School</p>
+            <p id="word3">School</p>
             <select id="lang4" onchange="showTranslation('lang4')">
                 <option value="en">English</option>
                 <option value="ma">Malayalam</option>
@@ -112,7 +112,7 @@
                 <option value="ta">Tamil</option>
                 <option value="hi">Hindi</option>
             </select>
-            <button onclick="showTrans('lang4', 'Language')">Get Meaning</button>
+            <button onclick="showTrans('lang4', document.getElementById('word3').textContent)">Get Meaning</button>
             <button onclick="speakWord('Example')" style="border: none; background: none; cursor: pointer;">
                 <i style="font-size:15px" class="fa">&#xf028;</i>
             </button>

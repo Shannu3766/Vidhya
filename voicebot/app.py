@@ -83,7 +83,11 @@ def translate_word():
           "ta":"Tamil",
           "hi":"Hindi",}
     try:
-        prompt = f"Define the word '{word}' in the language {language[target_language]} in 10 words for rural kids understanding."
+        # prompt = f"Define the word '{word}' in the language {language[target_language]} in just 10 words for rural kids understanding no need of further breakdown."
+        if language[target_language]=="English":
+            prompt=f"Give the meaning of the word {word} in english in single sentence in simple english"
+        else:
+            prompt = f"Give the meaning of the word {word} in {language[target_language]} in single sentence in simple {language[target_language]}"
         meaning = generate_response(prompt)
         print(meaning)
         # Return the translated word as a JSON response

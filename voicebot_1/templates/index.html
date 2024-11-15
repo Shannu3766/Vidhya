@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WELCOME to Amrita Academic Management Suite Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Set dark mode as default
+            document.body.classList.add('light-mode');
+
+            // Fetch and display random words as checkboxes
+            await fetchRandomWords();
+        });
+
+        async function fetchRandomWords() {
+            try {
+                const response = await fetch('/get_random_words', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
+
+                const checkboxContainer = document.getElementById('checkboxContainer');
+                checkboxContainer.innerHTML = ''; // Clear existing checkboxes
+
+                data.words.forEach(word => {
+                    const label = document.createElement('label');
+                    label.style.marginRight = '10px';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = word;
+                    checkbox.name = 'word';
+
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(word));
+                    checkboxContainer.appendChild(label);
+                });
+            } catch (error) {
+                console.error('Error fetching random words:', error);
+            }
+        }
+
+        function getSelectedWords() {
+            const checkboxes = document.querySelectorAll('input[name="word"]:checked');
+            const selectedWords = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            if (selectedWords.length > 6) {
+                alert('Please select up to 6 words only.');
+                return;
+            }
+
+            return selectedWords;
+        }
+
+        async function sendSelectedWords() {
+            const selectedWords = getSelectedWords();
+
+            if (!selectedWords || selectedWords.length === 0) {
+                alert('Please select at least one word.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/submit_selected_words', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selected_words: selectedWords }),
+                });
+
+                const data = await response.json();
+                displaySelectedWords(data.selected_words);
+
+                // Refresh random words after displaying the selected words
+                await fetchRandomWords();
+
+            } catch (error) {
+                console.error('Error sending selected words:', error);
+            }
+        }
+
+        function displaySelectedWords(words) {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = ''; // Clear previous results
+            if (words && words.length > 0) {
+                // Join the words into a sentence with spaces between them
+                const sentence = words.join(' ') + '.';
+                // Display the sentence
+                resultContainer.textContent = sentence;
+            } else {
+                resultContainer.textContent = 'No words selected or error occurred.';
+            }
+        }
+
+        function speakContent() {
+            const content = document.getElementById('resultContainer').textContent;
+            if (content && content !== 'No words selected or error occurred.') {
+                const utterance = new SpeechSynthesisUtterance(content);
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('No valid content to speak.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Select Words to </h2>
+        <div id="checkboxContainer"></div>
+        <button onclick="sendSelectedWords()" style="margin-top: 10px; height: 5vh; border-radius: 15px;">Submit Words</button>
+        <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
+            <div id="resultContainer" style="font-size: 18px; font-weight: 500; color: #333; flex-grow: 1;"></div>
+            <button onclick="speakContent()" class="speak-btn" 
+                style="height: 5vh; width: 5vh; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #4a90e2; border: none; cursor: pointer;">
+                <i class="fas fa-volume-up" style="color: white; font-size: 20px;"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

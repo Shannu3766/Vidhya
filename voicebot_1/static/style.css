@@ -1,0 +1,138 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Light and Dark Mode */
+.light-mode {
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #f4f7f6;
+}
+
+/* Chat Container */
+.chat-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #4a90e2;
+}
+
+/* Checkbox Container */
+#checkboxContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.3s;
+}
+
+label:hover {
+    color: #4a90e2;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Button */
+button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357ab7;
+}
+
+button:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+/* Result Container */
+#resultContainer {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 20px;
+    display: inline-block; /* Adjusted for alignment with the Speak button */
+    max-width: 70%;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Speak Button */
+button.speak-btn {
+    background-color: #34a853; /* Different color for the speak button */
+    margin-left: 10px; /* Added spacing between the result and button */
+}
+
+button.speak-btn:hover {
+    background-color: #2c8e46;
+}
+
+/* Adjusting spacing for the page */
+textarea {
+    width: 100%;
+    max-width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+input, button {
+    font-size: 16px;
+}
+
+input[type="checkbox"]:focus {
+    outline: none;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #4a90e2;
+}

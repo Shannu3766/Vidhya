@@ -73,9 +73,9 @@ def get_random_words():
 def submit_selected_words():
     data = request.json
     selected_words = data.get('selected_words', [])
-    print(f"Selected Words: {selected_words}")
+    # print(f"Selected Words: {selected_words}")
     response = generate_request(selected_words)
-    print(response)
+    # print(response)
     return jsonify({"status": "success", "selected_words": [response.split(":")[1]]})
 
 @app.route('/get_response', methods=['POST'])

@@ -80,7 +80,7 @@
                 displaySelectedWords(data.selected_words);
 
                 // Refresh random words after displaying the selected words
-                await fetchRandomWords();
+                // await fetchRandomWords();
 
             } catch (error) {
                 console.error('Error sending selected words:', error);
@@ -113,9 +113,9 @@
 </head>
 <body>
     <div class="chat-container">
-        <h2>Select Words to </h2>
+        <h2>Select Words to Create asentence</h2>
         <div id="checkboxContainer"></div>
-        <button onclick="sendSelectedWords()" style="margin-top: 10px; height: 5vh; border-radius: 15px;">Submit Words</button>
+        <button onclick="sendSelectedWords()" style="margin-top: 10px; height: 5vh; border-radius: 15px;">Create Sentence</button>
         <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
             <div id="resultContainer" style="font-size: 18px; font-weight: 500; color: #333; flex-grow: 1;"></div>
             <button onclick="speakContent()" class="speak-btn" 

@@ -46,7 +46,7 @@ def generate_response(user_input):
         ],
         model="llama3-70b-8192"
     )
-    print(chat_completion.choices[0].message.content,"jjjknkjn")
+    # print(chat_completion.choices[0].message.content,"jjjknkjn")
     return chat_completion.choices[0].message.content
 
 # Route for the home page
@@ -64,7 +64,7 @@ def translate():
     try:
         translator = GoogleTranslator(source='auto', target=target_language)
         translation = translator.translate(word)
-
+        # print(translation)
         # Return the translated word as a JSON response
         return jsonify({'translated_word': translation})
     except Exception as e:
@@ -89,7 +89,7 @@ def translate_word():
         else:
             prompt = f"Give the meaning of the word {word} in {language[target_language]} in single sentence in simple {language[target_language]}"
         meaning = generate_response(prompt)
-        print(meaning)
+        # print(meaning)
         # Return the translated word as a JSON response
         return jsonify({'translated_word': meaning})
     except Exception as e:

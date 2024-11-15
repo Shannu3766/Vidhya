@@ -15,7 +15,7 @@
             border: 1px solid black;
             padding: 20px;
             margin: 10px;
-            width: 250px;
+            width: 300px;
             text-align: center;
             border-radius: 15px;
         }
@@ -51,7 +51,7 @@
     <div class="card" id="card1">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwRLzFuwM-ZPtZhp2YSX_swTk8SyUZvLRwHw&s" alt="Image 1">
         <p id="word">Tree</p>
-        <select id="lang1" onchange="showTranslation('lang1')">
+        <select id="lang1" onchange="showTranslation('lang1')" style="font-size:15px;"> 
             <option value="en">English</option>
             <option value="ml">Malayalam</option>
             <option value="te">Telugu</option>
@@ -59,7 +59,7 @@
             <option value="ta">Tamil</option>
             <option value="hi">Hindi</option>
         </select>
-        <button onclick="showTrans('lang1', document.getElementById('word').textContent)">Get Meaning</button>
+        <button onclick="showTrans('lang1', document.getElementById('word').textContent)" style="font-size:15px;">अर्थ के लिए यहां दबाएं</button>
         <button onclick="speakWord(document.getElementById('word').textContent)" style="border: none; background: none; cursor: pointer;">
             <i style="font-size:15px" class="fa">&#xf028;</i>
         </button>
@@ -68,7 +68,7 @@
         <div class="card" id="card2">
             <img src="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-3foodgroups_fruits_detailfeature.jpg?sfvrsn=64942d53_4" alt="Image 2">
             <p id="word1">Fruits</p>
-            <select id="lang2" onchange="showTranslation('lang2')">
+            <select id="lang2" onchange="showTranslation('lang2')" style="font-size:15px;">
                 <option value="en">English</option>
                 <option value="ma">Malayalam</option>
                 <option value="te">Telugu</option>
@@ -76,7 +76,7 @@
                 <option value="ta">Tamil</option>
                 <option value="hi">Hindi</option>
             </select>
-            <button onclick="showTrans('lang2', document.getElementById('word1').textContent)">Get Meaning</button>
+            <button onclick="showTrans('lang2', document.getElementById('word1').textContent)" style="font-size:15px;">अर्थ के लिए यहां दबाएं</button>
             <button onclick="speakWord(document.getElementById('word1').textContent)" style="border: none; background: none; cursor: pointer;">
                 <i style="font-size:15px" class="fa">&#xf028;</i>
             </button>
@@ -86,7 +86,7 @@
         <div class="card" id="card3">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/012/084/533/small_2x/cartoon-wild-animals-on-white-background-vector.jpg" alt="Image 3">
             <p id="word2">Animals</p>
-            <select id="lang3" onchange="showTranslation('lang3')">
+            <select id="lang3" onchange="showTranslation('lang3')"  style="font-size:15px;">
                 <option value="en">English</option>
                 <option value="ma">Malayalam</option>
                 <option value="te">Telugu</option>
@@ -94,7 +94,7 @@
                 <option value="ta">Tamil</option>
                 <option value="hi">Hindi</option>
             </select>
-            <button onclick="showTrans('lang3', document.getElementById('word2').textContent)">Get Meaning</button>
+            <button onclick="showTrans('lang3', document.getElementById('word2').textContent)" style="font-size:15px;">अर्थ के लिए यहां दबाएं</button>
             <button onclick="speakWord(document.getElementById('word2').textContent)" style="border: none; background: none; cursor: pointer;">
                 <i style="font-size:15px" class="fa">&#xf028;</i>
             </button>
@@ -104,7 +104,7 @@
         <div class="card" id="card4">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAfElvjfbY1sOLV93jDu1djCnFLJN28gbxtg&s" alt="Image 4">
             <p id="word3">School</p>
-            <select id="lang4" onchange="showTranslation('lang4')">
+            <select id="lang4" onchange="showTranslation('lang4')" style="font-size:15px;">
                 <option value="en">English</option>
                 <option value="ma">Malayalam</option>
                 <option value="te">Telugu</option>
@@ -112,7 +112,7 @@
                 <option value="ta">Tamil</option>
                 <option value="hi">Hindi</option>
             </select>
-            <button onclick="showTrans('lang4', document.getElementById('word3').textContent)">Get Meaning</button>
+            <button onclick="showTrans('lang4', document.getElementById('word3').textContent)"  style="font-size:15px;">अर्थ के लिए यहां दबाएं</button>
             <button onclick="speakWord(document.getElementById('word3').textContent)" style="border: none; background: none; cursor: pointer;">
                 <i style="font-size:15px" class="fa">&#xf028;</i>
             </button>
@@ -120,7 +120,7 @@
 </div>
 
 <div id="translationBox" class="translation-box">
-    <p id="translationText">Click the <u>Get Meaning</u> button to get word meaning </p>
+    <p id="translationText">Here, you’ll find the meaning of the word</p>
 </div>
 
 <script>
